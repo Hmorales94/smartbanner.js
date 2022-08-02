@@ -74,12 +74,14 @@ var Detector = /*#__PURE__*/function () {
   _createClass(Detector, null, [{
     key: "platform",
     value: function platform() {
-      var maxTouchPoints = window.navigator.maxTouchPoints;
-      var userAgent = window.navigator.userAgent;
+      var navigator = window.navigator;
+      var maxTouchPoints = navigator.maxTouchPoints;
+      var userAgent = navigator.userAgent;
+      var isIpad = !!(navigator.userAgent.match(/(iPad)/) || navigator.platform === "MacIntel" && typeof navigator.standalone !== "undefined");
 
       if (/Android/i.test(userAgent)) {
         return 'android'; // maxTouchPoints is the only effective method to detect iPad iOS 13+
-      } else if (maxTouchPoints && maxTouchPoints > 0 || /iPhone|iPad|iPod/i.test(userAgent)) {
+      } else if (isIpad || /iPhone|iPad|iPod/i.test(userAgent)) {
         return 'ios';
       }
     }
