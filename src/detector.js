@@ -2,15 +2,16 @@ export default class Detector {
 
   static platform() {
     let navigator = window.navigator;
-    let maxTouchPoints = navigator.maxTouchPoints;
     let userAgent = navigator.userAgent;
-    const isIpad = !!(navigator.userAgent.match(/(iPad)/) || (navigator.platform === "MacIntel" && typeof navigator.standalone !== "undefined"))
 
     if (/Android/i.test(userAgent)){
       return 'android';
-    // maxTouchPoints is the only effective method to detect iPad iOS 13+
-    } else if ((isIpad) || /iPhone|iPad|iPod/i.test(userAgent)) {
-      return 'ios';
+    // maxTouchPoints is falsely detecting Windows devices with touchscreen. This check validares iPad iOS 13+.
+    } else {
+      const isIpad = !!(navigator.userAgent.match(/(iPad)/) || (navigator.platform === "MacIntel" && typeof navigator.standalone !== "undefined"))
+      if ((isIpad) || /iPhone|iPad|iPod/i.test(userAgent)) {
+        return 'ios'; 
+      }
     }
   }
 
