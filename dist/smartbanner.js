@@ -75,12 +75,11 @@ var Detector = /*#__PURE__*/function () {
     key: "platform",
     value: function platform() {
       var navigator = window.navigator;
-      var maxTouchPoints = navigator.maxTouchPoints;
       var userAgent = navigator.userAgent;
       var isIpad = !!(navigator.userAgent.match(/(iPad)/) || navigator.platform === "MacIntel" && typeof navigator.standalone !== "undefined");
 
       if (/Android/i.test(userAgent)) {
-        return 'android'; // maxTouchPoints is the only effective method to detect iPad iOS 13+
+        return 'android'; // maxTouchPoints is falsely detecting Windows devices with touchscreen. This new version fixes it and adresses iPad iOS 13+ as well.
       } else if (isIpad || /iPhone|iPad|iPod/i.test(userAgent)) {
         return 'ios';
       }
