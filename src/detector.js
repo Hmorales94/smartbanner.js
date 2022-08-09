@@ -6,8 +6,8 @@ export default class Detector {
 
     if (/Android/i.test(userAgent)){
       return 'android';
-    // maxTouchPoints is falsely detecting Windows devices with touchscreen. This check validares iPad iOS 13+.
     } else {
+      // maxTouchPoints is falsely detecting Windows devices with touchscreen as Apple products. This check validates iPad iOS 13+ too.
       const isIpad = !!(navigator.userAgent.match(/(iPad)/) || (navigator.platform === "MacIntel" && typeof navigator.standalone !== "undefined"))
       if ((isIpad) || /iPhone|iPad|iPod/i.test(userAgent)) {
         return 'ios'; 
